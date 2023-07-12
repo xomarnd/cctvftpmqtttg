@@ -1,0 +1,30 @@
+# docker-compose.yaml
+version: "3.8"
+services:
+  cctvftpmqtttg:
+    build: .
+    network_mode: "host"
+    restart: always
+    volumes:
+      - ./data:/data
+    environment:
+      - 'ALLOWED_DEVICES=[{"ip": "127.0.0.1", "name": "test"}, {"ip": "192.168.100.112", "name": "cam1"}, {"ip": "192.168.100.113", "name": "cam2"}, {"ip": "192.168.100.114", "name": "cam3"}, {"ip": "192.168.100.115", "name": "cam4"}]'
+      - FTP_USER=sample_user
+      - FTP_PASSWORD=sample_password
+      - FTP_DIR=/sample/data/directory
+      - FTP_PERM=sample_permissions
+      - TELEGRAM_BOT_TOKEN=111111111:ABCDEFGHIJKLMOPQRSTUVWXYZ123456789
+      - TELEGRAM_CHANNEL_ID=-9999999999999
+      - TELEGRAM_MESSAGE="Sample Alarm Message"
+      - MAX_FILES=150
+      - FILES_TO_DELETE=75
+      - MQTT_BROKER=192.168.100.100
+      - MQTT_PORT=1883
+      - MQTT_USERNAME=sample_mqtt_user
+      - MQTT_PASSWORD=sample_mqtt_password
+      - MQTT_BASE_TOPIC=cameras
+      - HOME_ASSISTANT_SERVER_ADR=192.168.100.100
+      - HOME_ASSISTANT_SERVER_PORT=8123
+      - HOME_ASSISTANT_SERVER_BEARER=AAABBBCCC111222333XYZ
+      - INPUT_BOOLEAN_ALARM=input_boolean.sample_input_boolean
+      - CHANNEL_DELAY=10
