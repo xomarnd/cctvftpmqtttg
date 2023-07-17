@@ -131,10 +131,8 @@ automations:
   platform: state
   entity_id: sensor.sensor_cam_1
   condition:
-  condition: and
-  conditions:
-  - condition: template
-  value_template: "{{ trigger.to_state.state != 'Processed' }}"
+    condition: template
+    value_template: "{{ trigger.to_state.state != 'Processed' }}"
   action:
   - delay:
     seconds: 5
@@ -149,10 +147,8 @@ automations:
   platform: state
   entity_id: sensor.sensor_cam_2
   condition:
-  condition: and
-  conditions:
-  - condition: template
-  value_template: "{{ trigger.to_state.state != 'Processed' }}"
+    condition: template
+    value_template: "{{ trigger.to_state.state != 'Processed' }}"
   action:
   - delay:
     seconds: 5
