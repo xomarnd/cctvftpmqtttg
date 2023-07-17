@@ -74,14 +74,22 @@ class CustomFTPHandler(FTPHandler):
         self.manage_files_buffer()
 
     def send_to_telegram(self, file):
-        with open(file, 'rb') as f:
-            photo_data = BytesIO(f.read())
-            self.bot.send_photo(chat_id=self.channel_id, photo=photo_data,
-                                caption=self.get_user_name())
+        try:
+            with open(file, 'rb') as f:
+                photo_data = BytesIO(f.read())
+                self.bot.send_photo(chat_id=self.channel_id, photo=photo_data,
+                                    caption=self.get_user_name())
+            print(f"Send to telegram {self.get_user_name()}")
+        except ValueError:
+            print(ValueError)
 
     def send_to_mqtt(self):
-        topic = f"{self.mqtt_base_topic}/{self.remote_ip}/event"
-        self.client.publish(topic, "snapshot")
+        try:
+            topic = f"{self.mqtt_base_topic}/{self.remote_ip}/event"
+            self.client.publish(topic, "snapshot")
+            print(f"Send to mqtt {topic}/snapshot")
+        except ValueError:
+            print(ValueError)
 
     def manage_files_buffer(self):
         files = [os.path.join(dp, f) for dp, dn, fn in os.walk(self.upload_folder) for f in fn]
